@@ -14,6 +14,19 @@ It is used by the [Mannheim University Library](https://www.bib.uni-mannheim.de)
 - **Background image options:** Site-wide background image with control over position, repeat, size, and whether it appears beneath the main content area.
 - _much more...!_
 
+### Additions to MAObjects:
+
+One of the main changes to the MAObjects theme is the specialised 'Item Browse' view, which focuses on bibliographic results. The table list view from the [AvantSearch](https://omeka.org/classic/plugins/AvantSearch/) plugin has been adapted to fit the theme's design and is now the default view for browsing items. This makes it easier to quickly scan through large bibliographic collections.
+The advanced AvantSearch is also perfectly suited to bibliographic collections, as it allows for complex queries and filtering options.
+
+- **Works best with following plugins:**
+    - [AvantSearch](https://omeka.org/classic/plugins/AvantSearch/) (for advanced site-wide search functionality and the great table list view!) <sup>[original repo](https://github.com/gsoules/AvantSearch)</sup>
+    - [Search By Metadata](https://omeka.org/classic/plugins/SearchByMetadata/) (to enhance search capabilities)
+- **Updates or changes apperence of following plugins:**
+    - [Corrections](https://omeka.org/classic/plugins/Corrections/) (styling and function -> we are using it to gather user submitted tag suggestions) <sup>[original repo](https://github.com/patrickmj/Corrections/tree/v1.0), [updated repo](https://github.com/UB-Mannheim/Corrections/tree/ubma)</sup>
+    - [Search By Metadata](https://omeka.org/classic/plugins/SearchByMetadata/) (to enhance search capabilities)
+    - AvantSearch (Updated styling, added (optional) searchbar) <sup>[updated repo](https://github.com/UB-Mannheim/AvantSearch/tree/nikephoros)</sup>
+
 ## Theme settings
 
 This theme offers extensive customization options through the Omeka admin interface. The listings are grouped in the same way as in the Appearance → Configure Theme screen.
