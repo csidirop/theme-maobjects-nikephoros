@@ -42,15 +42,28 @@ $sortLinks[__('Date Added')] = 'added';
                     <?php endif; ?>
 
                     <span class="item-meta-details">
-                        <?php if ($creator = metadata('item', array('Dublin Core', 'Creator'))): ?>
-                            <span class="item-creator"><?php echo $creator; ?></span>
-                        <?php endif; ?>
-                        <?php if ($date = metadata('item', array('Dublin Core', 'Date'))): ?>
-                            <span class="item-date"><?php echo $date; ?></span>
-                        <?php endif; ?>
-                        <?php if ($description = metadata($item, array('Dublin Core', 'Description'), array('snippet'=>350))): ?>
-                            <div class="item-description"><?php echo $description; ?></div>
-                        <?php endif; ?>
+                        <?php
+                        $additionalMetadata = get_theme_option('item_browse_additional_metadata');
+
+                        if ($additionalMetadata) {
+                            $rows = explode("\n", trim($additionalMetadata));
+                            $rows = array_map(function ($line) {
+                                return array_map('trim', explode(',', $line, 2)); // "2" keeps the rest in part2 if more commas exist
+                            }, $rows);
+                        }
+
+                        $json = json_encode($rows, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                        echo $json;
+                        ?>
+
+                        <?php
+                            foreach ($rows as $row) {
+                                if ($addiMetadata = metadata('item', array($row[0], $row[1]))) {
+                                    echo '<span class="item-'.$row[1].'">' . $addiMetadata . '</span>';
+                                }
+                            }
+                            ?>
+
                     </span>
                 </div>
             </div>
