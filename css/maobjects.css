@@ -1684,6 +1684,11 @@ body footer.uma-footer .social-icons {
   }
 }
 @media screen {
+  #content > #correction {
+    display: none;
+  }
+}
+@media screen {
   #search-selectors button::after {
     content: "⯆";
   }
@@ -1721,6 +1726,7 @@ body footer.uma-footer .social-icons {
 @media screen {
   #search-table-view {
     margin-top: auto;
+    width: 100%;
   }
   #search-table-view td, #search-table-view th {
     vertical-align: top;
@@ -1776,6 +1782,9 @@ body footer.uma-footer .social-icons {
   }
 }
 @media screen {
+  #avantsearch-primary #search-button input {
+    padding: 4px;
+  }
   #avantsearch-primary .search-form-section .search-field {
     display: flex;
   }

@@ -41,6 +41,7 @@
 // Overwrite search results table styling:
 #search-table-view {
     margin-top: auto; // Reset distance between selector-bar and search-results
+    width: 100%;
 
     td, th {
         vertical-align: top;
@@ -104,6 +105,10 @@
 
 // Overwrite main search:
 #avantsearch-primary {
+    #search-button input {
+        padding: 4px;
+    }
+
     .search-form-section .search-field {
         display: flex;
 
