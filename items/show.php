@@ -1,10 +1,11 @@
 <?php
 $linkToFileMetadata = get_option('link_to_file_metadata');
 $itemFiles = $item->Files;
-$useLightgallery  = get_theme_option('media_lightgallery');
+$useLightgallery = get_theme_option('media_lightgallery');
 $mediaOnlyPrimary = get_theme_option('media_only_primary');
+$mediaLinkToUrl = get_theme_option('media_link_to_url');
 if ($itemFiles && $useLightgallery) {
-    queue_lightgallery_assets();
+    maobjects_queue_lightgallery_assets();
 }
 echo head(array('title' => metadata('item', array('Dublin Core', 'Title')), 'bodyclass' => 'items show'));
 ?>
@@ -23,18 +24,18 @@ echo head(array('title' => metadata('item', array('Dublin Core', 'Title')), 'bod
 <div class="content-container">
     <div class="primary-content">
         <?php
-        // Regular display of all mediafiles:
+        // Default display of all mediafiles:
         if ($itemFiles && !$useLightgallery && !$mediaOnlyPrimary) {
-            echo files_for_item(array('imageSize' => 'thumbnail'), array('class' => 'element center'));
-        // Display only primary media (first file):
+            echo files_for_item(array('imageSize' => get_theme_option('media_image_size') ?: 'thumbnail'), array('class' => 'element center'));
+        // Default display of only primary media (first file):
         } elseif ($itemFiles && !$useLightgallery && $mediaOnlyPrimary) {
-            $image = item_image('thumbnail', array(), 0, $item);
+            $image = item_image(get_theme_option('media_image_size') ?: 'thumbnail', array(), 0, $item);
             $url = metadata('item', array('Item Type Metadata', 'URL'), array('no_filter' => true));
             // If a URL exists in the metadata, link the image to that URL:
-            echo $url ? '<a class="cover" target="_blank" href="' . $url . '">' . $image . '</a>' : $image;
-        // Display all files using lightgallery
+            echo ($mediaLinkToUrl && $url) ? '<a class="cover" target="_blank" href="' . $url . '">' . $image . '</a>' : $image;
+        // Display files using lightgallery:
         } elseif ($itemFiles && $useLightgallery) {
-            echo lightGallery($itemFiles);
+            echo $mediaOnlyPrimary ? lightGallery(array_splice($itemFiles, 0, 1)) : lightGallery($itemFiles);
         }
         ?>
     </div>
@@ -42,15 +43,6 @@ echo head(array('title' => metadata('item', array('Dublin Core', 'Title')), 'bod
     <div class="secondary-content">
         <!-- Add all metadata entries: -->
         <?php echo all_element_texts('item'); ?>
-
-        <!-- Hide metadata entry if option is set: -->
-        <style>
-            <?php if(get_theme_option('hide_item_metadata_title')) : ?>
-                #dublin-core-title {
-                    display: none;
-                }
-            <?php endif; ?>
-        </style>
 
         <!-- If the item belongs to a collection, create a link to that collection: -->
         <?php if (metadata('item', 'Collection Name')): ?>
@@ -92,7 +84,9 @@ echo head(array('title' => metadata('item', array('Dublin Core', 'Title')), 'bod
             <h3><?php echo __('Output Formats'); ?></h3>
             <details class="element-text outputs">
                 <summary class="outputs-label">
-                    <?php echo __('Show'); ?>
+                    <span class="outputs-icon" aria-hidden="true"></span>
+                    <span class="outputs-text"><?php echo __('Output Formats'); ?></span>
+                    <span class="outputs-caret" aria-hidden="true"></span>
                 </summary>
                 <?php echo output_format_list(); ?>
             </details>

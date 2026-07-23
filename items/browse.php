@@ -19,14 +19,19 @@ echo head(array('title'=>$pageTitle,'bodyclass' => 'items browse'));
 $sortLinks[__('Title')] = 'Dublin Core,Title';
 $sortLinks[__('Creator')] = 'Dublin Core,Creator';
 $sortLinks[__('Date Added')] = 'added';
+$sortStyle = get_theme_option('browse_item_sort_style');
 ?>
 <div id="sort-links">
-    <span class="sort-label"><?php echo __('Sort by: '); ?></span><?php echo browse_sort_links($sortLinks); ?>
+    <?php if ($sortStyle === 'classic'): ?>
+        <span class="sort-label"><?php echo __('Sort by: '); ?></span><?php echo browse_sort_links($sortLinks); ?>
+    <?php else: ?>
+        <?php echo maobjects_browse_sort_select($sortLinks, 'items-browse-sort-select', __('Sort items')); ?>
+    <?php endif; ?>
 </div>
 
 <?php endif; ?>
 
-<?php fire_plugin_hook('public_facets', array('items'=>$items, 'view' => $this)); ?>
+<?php echo maobjects_public_facets_if_available(array('items'=>$items, 'view' => $this)); ?>
 
 <div class="records">
     <?php foreach (loop('items') as $item): ?>
@@ -83,9 +88,11 @@ $sortLinks[__('Date Added')] = 'added';
 <?php if (get_theme_option('show_outputformats') == 1): ?>
 <details class="outputs">
     <summary class="outputs-label">
-        <?php echo __('Output Formats'); ?>
+        <span class="outputs-icon" aria-hidden="true"></span>
+        <span class="outputs-text"><?php echo __('Output Formats'); ?></span>
+        <span class="outputs-caret" aria-hidden="true"></span>
     </summary>
-    <div id="output-format-list">
+    <div id="output-format-list" class="output-format-panel">
         <?php echo output_format_list(false); ?>
     </div>
 </details>

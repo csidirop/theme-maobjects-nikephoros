@@ -14,6 +14,7 @@
     $backgroundImageOpacity = get_theme_option('background_image_opacity');
     $backgroundImageDonotshowundercontent = get_theme_option('background_image_donotshowundercontent');
     $floatingHome = get_theme_option('floating_homepage');
+    $isHomePage = maobjects_is_home_page(!empty($is_home_page));
     is_numeric($backgroundImageOpacity) ? $backgroundImageOpacity / 100 : 100;
     $show_element_set_headings = get_option('show_element_set_headings');
     $media_lightgallery_pdf_embed_hide_toolbar = get_theme_option( 'media_lightgallery_pdf_embed_hide_toolbar');
@@ -40,6 +41,10 @@
     $show_breadcrumbs = get_theme_option( 'show_breadcrumbs');
     $browse_hide_sec_nav = get_theme_option('browse_hide_sec_nav');
     $no_img_hover_effect = get_theme_option('no_img_hover_effect');
+    $media_image_max_height = get_theme_option('media_image_max_height');
+    $hide_item_metadata_title = get_theme_option('hide_item_metadata_title');
+    $hide_exhibit_heading = get_theme_option('hide_exhibit_heading');
+    $hide_exhibit_navigation = get_theme_option('hide_exhibit_navigation');
 ?>
 
 <style>
@@ -117,8 +122,7 @@
 
     /*** Userdefined Backgroundimage ***/
     <?php
-        $storage = Zend_Registry::get('storage');
-        $uri = $storage->getUri($storage->getPathByType(get_theme_option('background_image'), 'theme_uploads'));
+        $uri = maobjects_theme_upload_url('background_image');
         if ($backgroundImageUrl) :
     ?>
     body {
@@ -148,7 +152,6 @@
     <?php if ($backgroundImageUrl && ($backgroundImageDonotshowundercontent == '1')) : ?>
     #wrap {
         background-color: #FFFFFF;
-        padding: 0px
     }
     #wrap header, #wrap article {
         margin-left: 1.8rem;
@@ -157,46 +160,24 @@
     <?php endif; ?>
 
     /*** Floating home ***/
-    <?php if ($floatingHome == '1') : ?>
-    #home #wrap {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    @media only screen and (min-width: 900px) {
-        #home #wrap {
-            min-width: 1000px;
-        }
-    } 
-    @media only screen and (max-width: 900px) {
-        #home #wrap {
-            min-width: 100%;
-        }
+    <?php if ($floatingHome == '1' && $isHomePage) : ?>
+    body {
+        justify-content: center;
     }
 
-    #home #search-container {
+    #wrap {
+        flex: 0 0 auto;
+        width: min(100%, 1100px);
+        margin: 0 auto;
+    }
+
+    footer.uma-footer.uma-footer-compact-home {
+        width: min(100%, 1100px);
+        margin: 0 auto;
+    }
+
+    #search-container {
         display: none;
-    }
-
-    #home #site-title {
-        margin-top: auto;
-    }
-
-    #home .uma-footer {
-        padding: 0rem;
-    }
-
-    #home .logos .hosted {
-        display: none;
-    }
-
-    #home footer .legal {
-        margin: 1.075rem 0;
-    }
-
-    #home footer .logos {
-        margin-right: 20px;
     }
     <?php endif; ?>
 
@@ -235,6 +216,37 @@
     #content img:hover {
         transform: none !important;
         transition: none !important;
+    }
+    <?php endif; ?>
+    
+    /* Media Image Max Height */
+    <?php if ($media_image_max_height && $media_image_max_height !== '0') : ?>
+    .items.show img {
+        max-height: <?php echo $media_image_max_height; ?>px;
+        object-fit: contain;
+    }
+    <?php endif; ?>
+
+    /* Hide Item Metadata Title */
+    <?php if ($hide_item_metadata_title == '1') : ?>
+    #dublin-core-title {
+        display: none;
+    }
+    <?php endif; ?>
+
+    /* Exhibits: */
+    <?php if ($hide_exhibit_heading == '1') : ?>
+    .exhibits article h1 {
+        display: none;
+    }
+    <?php endif; ?>
+    <?php if ($hide_exhibit_navigation == '1') : ?>
+    #exhibit-pages,
+    #exhibit-page-navigation {
+        display: none;
+    }
+    #exhibit-blocks {
+        width: unset;
     }
     <?php endif; ?>
 </style>

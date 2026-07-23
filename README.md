@@ -2,17 +2,27 @@
 
 This theme is based on the [MAObjects](https://github.com/UB-Mannheim/theme-maobjects) theme, which itself is based on the [Center Row](https://github.com/omeka/theme-centerrow) theme.
 
+_This is a heavy customizable Omeka Classic theme for MAObjects, built to present digital collections, objects, and virtual exhibitions in the University of Mannheim’s visual design._
+
 It is used by the [Mannheim University Library](https://www.bib.uni-mannheim.de) in the context of [MAObjects](https://www.bib.uni-mannheim.de/en/teaching-and-research/research-data-center-fdz/services-of-the-fdz/maobjects/) Omeka deployments to provide a theme in the corporate design of the [University of Mannheim](https://www.uni-mannheim.de/). MAObjects is a service of the Mannheim University Library that provides researchers with an Omeka-based platform to create and present digital object collections and virtual exhibitions by uploading digital objects, describing them with standardised metadata, and making the data available via an API.
 
 <!-- ![Theme Example (Kotzebue Exhibition)](theme.jpg) -->
 <a href="https://fdz.bib.uni-mannheim.de/nikephoros/"><img src="theme.jpg" alt="Theme Example (Nikephoros Bibliography of Sport in Antiquity)" style="max-width:100%; height:auto;" /></a>
 
-- **Very customizable:** Optional advanced site-wide search, ability to route or hide the quick search bar, and show/hide child pages in top navigation.
-- **Customizable homepage:** Featured item/collection/exhibit, intro text, optional slideshow with autoplay and speed, optional “floating” minimal homepage layout, and toggleable breadcrumbs.
-- **Item and media display controls:** Multiple user-selectable layout options. Optional Lightgallery support (including PDFs via PDF Embed), handling of non-image media, configurable media captions, options to hide headings/DC title, and show/hide citations.
-- **Collection views:** Configurable collection browse page style (e.g. grid/list) and options to hide headings/duplicate title entries on collection pages.
-- **Background image options:** Site-wide background image with control over position, repeat, size, and whether it appears beneath the main content area.
-- _much more...!_
+- **Built for research collections and digital exhibitions:**
+    - Designed for deployments that present digital objects, curated collections, and virtual exhibits in a polished University of Mannheim look (but not limited to!).
+- **Flexible branding and homepage setup:**
+    - Configure logo, logo text, header image, a configurable CI-style footer with uploaded logos and editable link blocks, colors, breadcrumbs, background image, and a homepage with intro text plus featured item, collection, or exhibit blocks.
+- **Configurable navigation and search:**
+    - Show or hide child pages in the top navigation, switch the quick search behavior, or expose Omeka's advanced site-wide search for more targeted discovery.
+- **Stronger item and collection presentation:**
+    - Choose [grid or list browse views][items_browse_style], [switch item-page layouts][items_page_layout], control headings and duplicate title output, and decide how citations and secondary navigation are shown. Additionally, the item tags page includes a search bar to filter the tag cloud by search query.
+- **Better media handling out of the box:**
+    - Support single- or multi-file items, choose media sizes and captions, surface non-image files more gracefully, and *optionally* use Lightgallery with PDF Embed integration for PDF viewing.
+- **Plugin-aware theme refinements:** 
+    - Includes dedicated support for [Exhibit Builder](https://omeka.org/classic/plugins/ExhibitBuilder/) content and additional theme styling for [maintenance pages](https://omeka.org/classic/plugins/AdminTools/) and other site states.
+
+Current Changelog and release notes can be found in the [CHANGELOG.md](CHANGELOG.md) file.
 
 ## Theme settings
 
@@ -20,12 +30,13 @@ This theme offers extensive customization options through the Omeka admin interf
 
 ### [General][general]
 These options apply to various general aspects of the theme.
+
 |     Setting     |     Description     |
 |-----------------|---------------------|
 | Hide 'breadcrumbs' | Hides the breadcrumb trail (the path to the current page) from the top of content pages. |
 | Disable Image Hover Effect | Disables the zoom-on-hover effect for images throughout the theme. |
 
-### Colors
+### Color
 Provide a hex code to set the color of different elements of the theme. (Read more about html color codes here. Omeka only uses hex codes, formatted `#XXXXXX`.)
 
 |     Setting     |     Description     |
@@ -37,8 +48,8 @@ Provide a hex code to set the color of different elements of the theme. (Read mo
 > [!NOTE]
 > In the current state of the theme, some colors are not fully applied throughout all elements of the theme. Further improvements are planned for future versions.
 
-### [Header and Footer][header_footer]
-These options apply to the header and footer of the theme, including the quick search bar button in the header.
+### [Header][header]
+These options apply to the header of the theme, including the quick search bar in the header.
 
 |     Setting     |     Description     |
 |-----------------|---------------------|
@@ -51,15 +62,28 @@ These options apply to the header and footer of the theme, including the quick s
 | Header Image Position | Vertical alignment of the header image within its container (top, center or bottom). |
 | Alt Text for Header Image | Alternative text for the header image to improve accessibility and screen-reader support. |
 | Show Header Image On Homepage | Shows the header image on the homepage as well as on other pages. |
-| Footer Text | Custom text/HTML shown in the footer of every page. |
-| Display Copyright in Footer | Appends the site’s copyright information to the footer. |
 | Use Advanced Site-wide Search | Enables Omeka’s advanced search form so users can search across record types and choose boolean operators. |
 | Replace quick search bar with link to items/search | Routes queries from the quick search bar to the `/items/search` page instead of using the basic search. |
 | Do not provide quick search bar | Completely hides the quick search bar from the header. |
 | Show Top Navigation Child Pages | Shows child pages as dropdowns under the top navigation items; when unchecked, only top-level pages are shown. |
 
 > [!NOTE]
-> In the current state of the theme, some header and footer options have no effect anymore. Further improvements are planned for future versions.
+> In the current state of the theme, some header options have no effect anymore and will be reviewed in future updates.
+
+### [Footer][footer]
+These options apply to the footer of the theme.
+
+|     Setting     |     Description     |
+|-----------------|---------------------|
+| Footer Logo 1 / Footer Logo 2 | Optional uploaded logos shown in the left footer branding column. |
+| Footer Logo 1 Label / Footer Logo 2 Label | Optional text shown above the corresponding footer logo (for example “Hosted by”). |
+| Use footer gradient background | Enables a linear gradient for the footer shell; when disabled, the default is a solid Uni Mannheim blue background. |
+| Footer Block 1-3 Title | Title shown above each of the three main footer link columns. |
+| Footer Block 1-3 Links | `html-input` textareas for footer column links in the format `"url":"title"`, one entry per line. `<br>`-based line breaks from the editor are supported. |
+| Footer Legal Links | `html-input` textarea for the lower legal link row, using the same `"url":"title"` format. Internal paths like `"/imprint"` are resolved through Omeka, so they work in subdirectory installs as well. |
+| Footer Text | Optional additional text/HTML shown beneath the main footer columns; hidden entirely when empty. |
+| Footer Instagram URL / Footer Facebook URL / Footer LinkedIn URL / Footer TikTok URL / Footer YouTube URL / Footer Mastodon URL | Individual social-media URL fields for the footer icons. Leave a field empty to hide that icon. |
+
 
 ### [Homepage][homepage]
 These options apply to the homepage. Most of these options apply only if no other homepage is set in the Omeka settings ( Select a Homepage).
@@ -80,6 +104,7 @@ These options apply to the items browse page (Browse All, Browse by Tag, Browse 
 |     Setting     |     Description     |
 |-----------------|---------------------|
 | Browse Item Page Style | Choose between **Grid** (thumbnail-focused) and **List** (metadata-focused) layout for item browse pages. |
+| Item Browse Sort Control | Choose between a **Dropdown** sort selector and the **Classic links** list on item browse pages. |
 | Hide Secondary Navigation | Hides the secondary navigation on browse pages (Browse All, Browse Collections, Browse by Tag, etc.). |
 | Show list of output formats | Shows links to available output formats on item browse and item show pages. |
 
@@ -91,6 +116,9 @@ These options apply to the item (show) page. This is the item detail view of one
 | Layout | Selects the item page layout: vertical (media above/below metadata) or horizontal (media and metadata side by side, with media on left or right). |
 | Content Ratio | For horizontal layouts, percentage width of the primary (media) column; the metadata column uses the remaining width. |
 | Show only primary media | Shows only the primary media file on the item page and hides all other attached files. |
+| Link media to URL | Links media files to the URL set in the item metadata (only applies if "Show only primary media" is enabled and "Use lightgallery" is disabled). |
+| Media Image Size | Selects the image size to use for media thumbnails on item pages. |
+| Media Image Max Height | Sets a maximum height for media thumbnails on item pages. |
 | Non-Image Media | When enabled, non-image files that cannot be shown in the media viewer are listed as downloadable links instead of being hidden. |
 | Use lightgallery | Uses the lightgallery viewer to display media; when combined with the PDF Embed plugin, PDFs can be shown in the gallery as well. |
 | Hide toolbar from PDF viewer | Hides the PDF viewer toolbar when using PDF Embed with PDF.js (if supported by the browser). |
@@ -105,6 +133,7 @@ These options apply to the collection browse pages (overview of all collections)
 |     Setting     |     Description     |
 |-----------------|---------------------|
 | Browse Collection Page Style | Choose between **Grid** and **List** layout for the collection browse page. |
+| Collection Browse Sort Control | Choose between a **Dropdown** sort selector and the **Classic links** list on collection browse pages. |
 
 ### [Collection: Page][collections]
 These options apply to the collection show pages (overview of one collections, showing some items). This is the collection detail view of one specific collection.
@@ -126,9 +155,16 @@ These options allow to set a background image which is shown in the background o
 | Body Background Image Size | Controls how the background image is scaled (automatic, cover the viewport, or contain within it). |
 | Do not show background image under content | When enabled, the background image is not shown beneath the main content area, keeping the content background solid. |
 
+### Exhibits 
+These options apply to the exhibit pages. This includes the exhibit overview page and the individual exhibit pages created with the Exhibit Builder plugin"
+|     Setting     |     Description     |
+|-----------------|---------------------|
+| Hide exhibit heading | Hides the main heading on exhibit pages. |
+| Hide exhibit navigation | Hides the exhibit navigation on exhibit pages. |
+
 ## Installation
 
-1. Download the theme archive from the [Omeka themes collection](https://omeka.org/classic/themes/maobjects/) or clone this repository into your Omeka installation's `themes` directory.
+1. Download the theme archive from the [Omeka themes collection](https://omeka.org/classic/themes/maobjects/), the projects [release page](https://github.com/UB-Mannheim/theme-maobjects/releases) or clone this repository into your Omeka installation's `themes` directory.
 2. In the Omeka admin dashboard, navigate to "Appearance" and activate the "MAObjects" theme by clicking on the "Use this theme"-button.
 3. Customize the theme settings as needed.
 
@@ -150,8 +186,11 @@ Third-party copyright in this distribution is noted where applicable.
 All rights not expressly granted are reserved.
 
 [general]: docs/options-general.md
-[header_footer]: docs/options-header_footer.md
+[header]: docs/options-header.md
+[footer]: docs/options-footer.md
 [homepage]: docs/options-homepage.md
 [items_page]: docs/options-items_page.md
+[items_page_layout]: docs/options-items_page.md#option-layout
 [items_browse]: docs/options-items_browse.md
+[items_browse_style]: docs/options-items_browse.md#option-browse-item-page-style
 [collections]: docs/options-collections.md

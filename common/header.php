@@ -27,9 +27,7 @@
 
     <!-- Stylesheets -->
     <?php
-    queue_css_file(array('style', 'public', 'iconfonts'));
-    queue_css_url("https://www.uni-mannheim.de/typo3conf/ext/uma_site/Resources/Public/Icons/sprite.css");
-    queue_css_url("https://www.uni-mannheim.de/typo3conf/ext/uma_site/Resources/Public/Css/app.css");
+    queue_css_file(array('style', 'maobjects', 'uma-basestyle', 'public', 'iconfonts'));
     echo head_css();
     echo $this->partial('common/theme_option_styles.php');
     ?>
@@ -37,7 +35,7 @@
     <!-- JavaScripts -->
     <?php
     queue_js_file(array('globals'));
-    queue_js_file(array('mashare', 'jquery-accessibleMegaMenu'), 'js');
+    queue_js_file(array('centerrow', 'jquery-accessibleMegaMenu', 'uma-app', 'maobjects'), 'js');
     echo head_js();
     ?>
 </head>
@@ -70,7 +68,13 @@
                             <?php else: ?>
                                 <?php echo search_form(array('form_attributes' => array('role' => 'search', 'class' => 'closed'))); ?>
                             <?php endif; ?>
-                            <button type="button" class="search-toggle" title="<?php echo __('Toggle search'); ?>"></button>
+                            <button
+                                type="button"
+                                class="search-toggle"
+                                title="<?php echo __('Toggle search'); ?>"
+                                aria-label="<?php echo __('Toggle search'); ?>"
+                                aria-controls="search-form"
+                                aria-expanded="false"></button>
                         <?php else: ?>
                             <search>
                                 <form id="search-form" class="advanced-search-form" action="find" aria-label="Search">
